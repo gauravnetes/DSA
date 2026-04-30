@@ -11,7 +11,7 @@ class Solution {
             return true; 
         
         if(s[i] == s[j])
-            solve(s, i+1, j-1); 
+            return solve(s, i+1, j-1); 
         else 
             return false; 
     }
