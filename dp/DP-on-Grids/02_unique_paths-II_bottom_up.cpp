@@ -1,0 +1,43 @@
+#include <vector>
+using namespace std; 
+
+class Solution {
+public:
+    int m, n; 
+
+    int uniquePathsWithObstacles(vector<vector<int>>& grid) {
+        m = grid.size(); 
+        n = grid[0].size(); 
+
+        vector<vector<int>> t(m, vector<int>(n)); 
+
+        for(int col = 0; col < n; col++) {
+            if((col > 0 && grid[0][col-1] == 1) || grid[0][col] == 1) {
+                t[0][col] = 0; 
+                grid[0][col] = 1; 
+            }
+            else 
+                t[0][col] = 1; 
+        }
+
+        for(int row = 0; row < m; row++) {
+            if((row > 0 && grid[row-1][0] == 1) || grid[row][0] == 1) {
+                t[row][0] = 0;
+                grid[row][0] = 1; 
+            } 
+            else 
+                t[row][0] = 1;  
+        }
+        
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(grid[i][j] == 1) 
+                    t[i][j] = 0; 
+                else 
+                    t[i][j] = t[i-1][j] + t[i][j-1]; 
+            } 
+        }
+        
+        return t[m-1][n-1]; 
+    }
+};
